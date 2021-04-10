@@ -27,20 +27,24 @@ import static org.hamcrest.Matchers.*;
 public class UserStory {
     private String theRestApiBaseUrl;
     private EnvironmentVariables environmentVariables;
-    private Actor anna;
+    private Actor anna; //Actor
     @Before
     public void configureBaseUrl() {
         theRestApiBaseUrl=environmentVariables.optionalProperty("restapi.baseurl")
                 .orElse("https://reqres.in/");
+        //Define ability for actor
+        //Actor name is "Anna" who can make a call to api at domain configured on setting file
         anna = Actor.named("Anna the supervisor").whoCan(CallAnApi.at(theRestApiBaseUrl));
     }
 
     @Test
     public void find_an_individual_user() {
+        //Anna perform a task with name FindAUser with parameter is 2
         anna.attemptsTo(
                 FindAUser.withId(2)
         );
 
+        //Question
         anna.should(
                 seeThatResponse("User detail should be correct",
                         response->response.statusCode(200)

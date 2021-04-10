@@ -21,6 +21,7 @@ public class FindAUser implements Task {
     @Step("{0} fetches the user with id #id")
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
+                //Actions
                 Get.resource("api/users/{id}")
                     .with(request->request.pathParam("id", id))
         );
